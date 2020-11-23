@@ -1,7 +1,17 @@
 const express = require('express')
 const path = require('path');
+const mysql = require('mysql');
 const app = express()
 const port = process.env.PORT || 3000;
+
+function mySQLConnection() {
+    return mysql.createConnection({
+      host: 'washington.uww.edu',
+      user: 'redfernm09',
+      password: 'rr9004',
+      database: 'c366-2207_redfernrm09'
+    });
+}
 
 app.set("view engine", "pug")
 app.set('views', path.join(__dirname, 'views'));
