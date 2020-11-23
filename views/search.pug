@@ -9,4 +9,8 @@ html
     body
         .header
             include header.pug
-            h2 Search
+            div(class="Center" style="padding-left:3%")
+                h2 Search
+                form(action="/Results" method="get")
+                    input(type="text" name="param" placeholder="Movie Title")
+                    button(type="submit") Search
