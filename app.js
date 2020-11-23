@@ -7,11 +7,14 @@ const port = process.env.PORT || 3000;
 function mySQLConnection() {
     return mysql.createConnection({
       host: 'washington.uww.edu',
-      user: 'redfernm09',
-      password: 'rr9004',
-      database: 'c366-2207_redfernrm09'
+      user: 'gasserjc20',
+      password: 'jg2414',
+      database: 'c366-2207_gasserjc20'
     });
 }
+
+db = mySQLConnection()
+db.connect()
 
 app.set("view engine", "pug")
 app.set('views', path.join(__dirname, 'views'));
@@ -28,10 +31,21 @@ app.get('/Search', (req, res) => {
 app.get('/Results', (req, res) => {
     searchParam = req.query.param
     searchType = req.query.type
+    console.log(searchParam)
+    sql = `SELECT * FROM Movies Where title = "${searchParam}"`
+    console.log(sql)
+    pass = []
+    db.query(sql, (err, results) => {
+        if(err) throw err;
+        console.log(results)
+        results.array.forEach(element => {
+            pass.push(results.RowDataPacket.Title)
+        });
+    })
+    console.log(pass)
     //call database
     //database results => array or json object named results
-    results = [searchParam, searchType]
-    res.render('results.pug', results)
+    //res.render('results.pug', pass)
 })
 
 app.listen(port, () => {
