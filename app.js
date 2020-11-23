@@ -25,11 +25,12 @@ app.get('/Search', (req, res) => {
     res.render('search.pug')
 })
 
-
 app.get('/Results', (req, res) => {
     searchParam = req.query.param
+    searchType = req.query.type
     //call database
     //database results => array or json object named results
+    results = [searchParam, searchType]
     res.render('results.pug', results)
 })
 

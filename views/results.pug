@@ -9,4 +9,7 @@ html
     body
         .header
             include header.pug
-            
+            h2 Results
+                ul
+                    each item in results
+                        li=item

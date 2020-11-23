@@ -12,5 +12,11 @@ html
             div(class="Center" style="padding-left:3%")
                 h2 Search
                 form(action="/Results" method="get")
-                    input(type="text" name="param" placeholder="Movie Title")
+                    select(name="type") Search Type
+                        option(value="genre") By Genre
+                        option(value="title") By Title
+                        option(value="actor") By Actor
+                        option(value="director") By Director
+                        option(value="tag") By Tag
+                    input(type="text" name="param" placeholder="Serach Parameters")
                     button(type="submit") Search
