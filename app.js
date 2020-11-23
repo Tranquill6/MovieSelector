@@ -8,7 +8,11 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'files')));
 
 app.get('/', (req, res) => {
-    res.send("Hello World")
+    res.render('index.pug')
+})
+
+app.get('/Search', (req, res) => {
+    res.render('search.pug')
 })
 
 app.listen(port, () => {
