@@ -1,6 +1,7 @@
 const express = require('express')
 const path = require('path');
 const mysql = require('mysql');
+const { query } = require('express');
 const app = express()
 const port = process.env.PORT || 3000;
 
@@ -12,6 +13,7 @@ function mySQLConnection() {
       database: 'c366-2207_gasserjc20'
     });
 }
+
 
 db = mySQLConnection()
 db.connect()
@@ -28,24 +30,19 @@ app.get('/Search', (req, res) => {
     res.render('search.pug')
 })
 
-app.get('/Results', (req, res) => {
+app.get('/Results', async (req, res) => {
     searchParam = req.query.param
     searchType = req.query.type
-    console.log(searchParam)
     sql = `SELECT * FROM Movies Where title = "${searchParam}"`
-    console.log(sql)
-    pass = []
-    db.query(sql, (err, results) => {
-        if(err) throw err;
-        console.log(results)
-        results.array.forEach(element => {
-            pass.push(results.RowDataPacket.Title)
+    db.query(sql, function (err, result) {
+        if (err) throw err;
+        console.log(result);
+        pass = new Array()
+        result.forEach(element => {
+            pass[pass.length] = element.Title
         });
-    })
-    console.log(pass)
-    //call database
-    //database results => array or json object named results
-    //res.render('results.pug', pass)
+        res.send(pass)
+    });
 })
 
 app.listen(port, () => {
