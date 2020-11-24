@@ -33,6 +33,11 @@ app.get('/Search', (req, res) => {
 app.get('/Results', async (req, res) => {
     searchParam = req.query.param
     searchType = req.query.type
+
+    //
+    // Add Switch case and search bar value validation in the future
+    //
+
     sql = `SELECT * FROM Movies Where title = "${searchParam}"`
     db.query(sql, function (err, result) {
         if (err) throw err;
