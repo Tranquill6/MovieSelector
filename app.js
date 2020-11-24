@@ -7,10 +7,10 @@ const port = process.env.PORT || 3000;
 
 function mySQLConnection() {
     return mysql.createConnection({
-      host: 'washington.uww.edu',
-      user: 'gasserjc20',
-      password: 'jg2414',
-      database: 'c366-2207_gasserjc20'
+      host: '',
+      user: '',
+      password: '',
+      database: ''
     });
 }
 
