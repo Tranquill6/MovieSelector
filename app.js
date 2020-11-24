@@ -41,7 +41,7 @@ app.get('/Results', async (req, res) => {
         result.forEach(element => {
             pass[pass.length] = element.Title
         });
-        res.send(pass)
+        res.render('results', pass)
     });
 })
 
