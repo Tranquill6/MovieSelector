@@ -4,6 +4,7 @@ const mysql = require('mysql');
 const { query } = require('express');
 const app = express()
 const port = process.env.PORT || 3000;
+const { check, validationResult } = require('express-validator');
 
 function mySQLConnection() {
     return mysql.createConnection({
@@ -13,7 +14,6 @@ function mySQLConnection() {
       database: ''
     });
 }
-
 
 db = mySQLConnection()
 db.connect()
@@ -38,13 +38,13 @@ app.get('/Results', async (req, res) => {
     // Add Switch case and search bar value validation in the future
     //
 
-    sql = `SELECT * FROM Movies Where title = "${searchParam}"`
+    sql = 'SELECT * FROM Movies Where title = ' + db.escape(searchParam);
     db.query(sql, function (err, result) {
         if (err) throw err;
         console.log(result);
         pass = new Array()
         result.forEach(element => {
-            pass[pass.length] = element.Title
+            pass[pass.length] = element.Title;
         });
         res.render('results', pass)
     });
