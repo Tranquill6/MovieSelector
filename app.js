@@ -5,7 +5,7 @@ const { query } = require('express');
 const app = express()
 const port = process.env.PORT || 3000;
 const { check, validationResult } = require('express-validator');
-const credentials = require('credentials.json')
+const credentials = require('./credentials.json')
 
 function mySQLConnection() {
     return mysql.createConnection({
