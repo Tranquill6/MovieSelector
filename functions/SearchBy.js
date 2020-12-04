@@ -1,4 +1,3 @@
-const mysql = require('mysql');
 const database = require('./connect.js')
 const db = database.db
 

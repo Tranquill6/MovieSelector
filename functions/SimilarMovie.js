@@ -1,9 +1,10 @@
-/*
+const database = require('./connect.js')
+const db = database.db
 
-Design Scoring alogrithm for finding similar movie:
+const GetMovie = (id) => {
 
-- get list of movies in same genre
-- find top 3 movies, with the most amount of similar tags
-- return top 3
+}
 
-*/
+module.exports = {
+    GetMovie: GetMovie
+}
