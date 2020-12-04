@@ -1,25 +1,14 @@
 const express = require('express')
-const path = require('path');
-const mysql = require('mysql');
-const { query } = require('express');
 const app = express()
+const path = require('path');
+const { query } = require('express');
+
 const port = process.env.PORT || 3000;
 const { check, validationResult } = require('express-validator');
-const credentials = require('./credentials.json')
-
-
-
-function mySQLConnection() {
-    return mysql.createConnection({
-      host: credentials.host,
-      user: credentials.user,
-      password: credentials.password,
-      database: credentials.database
-    });
-}
-
-db = mySQLConnection()
-db.connect()
+const Comment = require('./functions/Comment.js')
+const Search = require('./functions/SearchBy.js')
+const Rate = require('./functions/RateMovie.js')
+const SimilarMovie = require('./functions/SimilarMovie.js')
 
 app.set("view engine", "pug")
 app.set('views', path.join(__dirname, 'views'));
@@ -36,29 +25,13 @@ app.get('/Search', (req, res) => {
 app.get('/Results', async (req, res) => {
     searchParam = req.query.param
     searchType = req.query.type
+})
 
-app.get('/Movie/:movieId', (req, res) => {
+app.get('/movie/:movieId', (req, res) => {
     movieId = req.params['movieId']
     res.render('search.pug')
-})
-    //
-    // Add Switch case and search bar value validation in the future
-    //
-
-    sql = 'SELECT * FROM Movies Where title = ' + db.escape(searchParam);
-    db.query(sql, function (err, result) {
-        if (err) throw err;
-        console.log(result);
-        pass = new Array()
-        result.forEach(element => {
-            pass[pass.length] = element.Title;
-        });
-        res.render('results', pass)
-    });
 })
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })
-
-//(style="background-color:#abc4c4")

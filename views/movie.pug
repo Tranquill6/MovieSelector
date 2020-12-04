@@ -9,8 +9,10 @@ html
     body
         .header
             include header.pug
-            h2 Results
+            h2 Data.title
                 ul
-                    each item in Data.movies
-                        a(href=`movie/${item.id}`)
-                            li=item.title
+                    each item in Data.movieData
+                        li = item
+                ul
+                    each comment in Data.comments
+                        li = comment
