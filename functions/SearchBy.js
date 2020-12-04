@@ -12,104 +12,8 @@ const mysql = require('mysql');
 const database = require('./connect.js')
 const db = database.db
 
-const GetMoviesByTitle = (title) => {
-    sql = `SELECT distinct * FROM Movies Where title LIKE *${db.escape(searchParam)}*`;
-    db.query(sql, (err, result) => {
-        if (err) throw err;
-        console.log(result);
-        _movies = new Array()
-        result.forEach(element => {
-            obj = {
-                title: element.Title,
-                id: element.MovieId
-            }
-            _movies[_movies.length] = obj
-        });
-        returnDataObj = {
-            movies: _movies
-        }
-        return returnDataObj
-    });
-    returnDataObj = {
-        movies: []
-    }
-    return returnDataObj
-}
-
-const GetMoviesByGenre = (genre) => {
-    sql = `SELECT distinct * FROM Movies Where title LIKE *${db.escape(searchParam)}*`;
-    db.query(sql, (err, result) => {
-        if (err) throw err;
-        console.log(result);
-        _movies = new Array()
-        result.forEach(element => {
-            obj = {
-                title: element.Title,
-                id: element.MovieId
-            }
-            _movies[_movies.length] = obj
-        });
-        returnDataObj = {
-            movies: _movies
-        }
-        return returnDataObj
-    });
-    returnDataObj = {
-        movies: []
-    }
-    return returnDataObj
-}
-
-const GetMoviesByDirector = (genre) => {
-    sql = `SELECT distinct * FROM Movies Where title LIKE *${db.escape(searchParam)}*`;
-    db.query(sql, (err, result) => {
-        if (err) throw err;
-        console.log(result);
-        _movies = new Array()
-        result.forEach(element => {
-            obj = {
-                title: element.Title,
-                id: element.MovieId
-            }
-            _movies[_movies.length] = obj
-        });
-        returnDataObj = {
-            movies: _movies
-        }
-        return returnDataObj
-    });
-    returnDataObj = {
-        movies: []
-    }
-    return returnDataObj
-}
-
-const GetMoviesByActor = (genre) => {
-    sql = `SELECT distinct * FROM Movies Where title LIKE *${db.escape(searchParam)}*`;
-    db.query(sql, (err, result) => {
-        if (err) throw err;
-        console.log(result);
-        _movies = new Array()
-        result.forEach(element => {
-            obj = {
-                title: element.Title,
-                id: element.MovieId
-            }
-            _movies[_movies.length] = obj
-        });
-        returnDataObj = {
-            movies: _movies
-        }
-        return returnDataObj
-    });
-    returnDataObj = {
-        movies: []
-    }
-    return returnDataObj
-}
-
-const GetMoviesByTag = (genre) => {
-    sql = `SELECT distinct * FROM Movies Where title LIKE *${db.escape(searchParam)}*`;
+const GetMoviesBy = (type, param) => {
+    sql = `SELECT distinct * FROM Movies Where ${type} *${db.escape(param)}*`;
     db.query(sql, (err, result) => {
         if (err) throw err;
         console.log(result);
@@ -133,22 +37,23 @@ const GetMoviesByTag = (genre) => {
 }
 
 const GetMovieDetails = (id) => {
-    sql = `SELECT distinct * FROM Movies Where title LIKE *${db.escape(searchParam)}*`;
+    sql = `SELECT distinct * FROM Movies Where MovieId *${db.escape(id)}*`;
     db.query(sql, (err, result) => {
         if (err) throw err;
         console.log(result);
-        _movies = new Array()
         result.forEach(element => {
+            data = [element.Title, element.RtAllCriticsRating]
+            data.push(GetDirectors(id))
+            data.push(GetActors(id))
+            data.push(GetGenres(id))
+            data.push(GetTags(id))
+            comment = GetComments(id)
             obj = {
-                title: element.Title,
-                id: element.MovieId
+                movieData: data,
+                comments: comment
             }
-            _movies[_movies.length] = obj
+            return obj
         });
-        returnDataObj = {
-            movies: _movies
-        }
-        return returnDataObj
     });
     returnDataObj = {
         movies: []
@@ -157,10 +62,6 @@ const GetMovieDetails = (id) => {
 }
 
 module.exports = {
-    GetMoviesByTitle: GetMoviesByTitle,
-    GetMoviesByGenre: GetMoviesByGenre,
-    GetMoviesByDirector: GetMoviesByDirector,
-    GetMoviesByActor: GetMoviesByActor,
-    GetMoviesByTag: GetMoviesByTag,
+    GetMoviesBy: GetMoviesBy,
     GetMovieDetails: GetMovieDetails
 }
