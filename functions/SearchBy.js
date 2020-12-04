@@ -35,7 +35,10 @@ const GetMoviesBy = (type, param) => {
             });
         }
         catch{
-            reject('{"Failure"}')
+            Data = {
+                movies: []
+            }
+            reject(Data)
         }
     })
 }

@@ -37,20 +37,12 @@ app.get('/Results', async (req, res) => {
             }
             res.render('message.pug', Data)
         }
-        
     })
 })
 
 app.get('/movie/:movieId', (req, res) => {
     movieId = req.params['movieId']
     res.render('search.pug')
-})
-
-app.get('/example/:title', async (req, res) => {
-    title = req.params['title']
-    Search.GetMoviesBy('title',title).then( (results) => {
-        res.send(results)
-    })
 })
 
 app.listen(port, () => {
