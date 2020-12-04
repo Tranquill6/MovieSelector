@@ -1,12 +1,3 @@
-/*
-Search Db By:
-    -Genre
-    -Title
-    -Actor
-    -Director
-    -Tag
-    -GetMovieDetails
-*/
 const mysql = require('mysql');
 const database = require('./connect.js')
 const db = database.db
@@ -45,50 +36,36 @@ const GetMoviesBy = (type, param) => {
 
 const GetMovieDetails = (id) => {
     return new Promise((resolve,reject) => {
-        sql = `SELECT distinct * FROM Movies Where MovieId *${db.escape(id)}*`;
+        sql = "Silver bullet"
         db.query(sql, (err, result) => {
             if (err) throw err;
             console.log(result);
-            result.forEach(element => {
-                data = [element.Title, element.RtAllCriticsRating]
-                data.push(GetDirectors(id))
-                data.push(GetActors(id))
-                data.push(GetGenres(id))
-                data.push(GetTags(id))
-                comment = GetComments(id)
+            result.forEach(element => { 
                 obj = {
-                    movieData: data,
-                    comments: comment
+                    title: element.title,
+                    director: element.director,
+                    actors: element.actors,
+                    genres: element.genres,
+                    rating: element.ratings,
+                    tags: element.tags,
+                    comments: element.content
                 }
-                return obj
+                resolve(obj)
             });
         });
         obj = {
-            movieData: [],
+            title: '',
+            director: '',
+            actors: [],
+            genres: [],
+            rating: '',
+            tags: [],
             comments: []
         }
-        return obj
+        reject(obj)
     })
 }
 
-const GetDirectors = (id) => {
-
-}
-const GetActors = (id) => {
-    
-}
-const GetGenres = (id) => {
-    sql = ` SELECT distinct( c.genre ) 
-    FROM Categorizes c, Movies m  
-    WHERE "${id}" = c.viewId
-    `
-}
-const GetTags = (id) => {
- 
-}
-const GetComments = (id) => {
-    
-}
 module.exports = {
     GetMoviesBy: GetMoviesBy,
     GetMovieDetails: GetMovieDetails
