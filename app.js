@@ -37,10 +37,8 @@ app.get('/Results', async (req, res) => {
     searchParam = req.query.param
     searchType = req.query.type
 
-    
 app.get('/Movie/:movieId', (req, res) => {
     movieId = req.params['movieId']
-    
     res.render('search.pug')
 })
     //

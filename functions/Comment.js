@@ -1,0 +1,6 @@
+/*
+communicate with comment db
+add comment
+remove comment
+edit comment
+*/
