@@ -1,12 +1,6 @@
 # **Features:**
-
-- Search By
-  - Genre
-  - Title
-  - Actor
-  - Director
-  - Tag
-  - Similar Movie Search:
-    - genre + tags => similar movie
-- Comment on movie
-- Rate Movie
+- Comment JS (Easy) 
+- Similar Movie Search (Medium) 
+  - genre + tags => similar movie
+- Get Movie Details (HARD)
+- Rate Movie (Easy)
