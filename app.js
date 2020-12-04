@@ -9,6 +9,8 @@ const Comment = require('./functions/Comment.js')
 const Search = require('./functions/SearchBy.js')
 const Rate = require('./functions/RateMovie.js')
 const SimilarMovie = require('./functions/SimilarMovie.js')
+const Database = require('./functions/Connect.js')
+const db = Database.db
 
 app.set("view engine", "pug")
 app.set('views', path.join(__dirname, 'views'));
@@ -32,6 +34,25 @@ app.get('/movie/:movieId', (req, res) => {
     res.render('search.pug')
 })
 
+app.get('/example/:title', async (req, res) => {
+    title = req.params['title']
+    Search.GetMoviesBy('title',title).then( (results) => {
+        res.send(results)
+    })
+})
+
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })
+
+function getColour(username, roomCount) {
+    return new Promise((resolve, reject) => {
+      connection.query(
+        "SELECT hexcode FROM colours WHERE precedence = ?",
+        [roomCount],
+        (err, result) => {
+          return err ? reject(err) : resolve(result[0].hexcode);
+        }
+      );
+    });
+  }

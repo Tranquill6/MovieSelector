@@ -7,33 +7,37 @@ Search Db By:
     -Tag
     -GetMovieDetails
 */
-const credentials = require('../credentials.json')
 const mysql = require('mysql');
 const database = require('./connect.js')
 const db = database.db
 
 const GetMoviesBy = (type, param) => {
-    sql = `SELECT distinct * FROM Movies Where ${type} *${db.escape(param)}*`;
-    db.query(sql, (err, result) => {
-        if (err) throw err;
-        console.log(result);
-        _movies = new Array()
-        result.forEach(element => {
-            obj = {
-                title: element.Title,
-                id: element.MovieId
-            }
-            _movies[_movies.length] = obj
-        });
-        returnDataObj = {
-            movies: _movies
+    return new Promise((resolve,reject) => {
+        try{
+            sql = `SELECT distinct * FROM Movies Where ${type} LIKE '${param}'`;
+            console.log(sql)
+            _movies = new Array()
+            returnDataObj = {}
+            db.query(sql, (err, result) => {
+                result.forEach(element => {
+                    obj = {
+                    title: element.Title,
+                    id: element.MovieId
+                }
+                _movies.push(obj)
+                });
+                console.log(_movies)
+                returnDataObj = {
+                    movies: _movies
+                }
+                console.log(returnDataObj)
+                resolve(returnDataObj)
+            });
         }
-        return returnDataObj
-    });
-    returnDataObj = {
-        movies: []
-    }
-    return returnDataObj
+        catch{
+            reject('{"Failure"}')
+        }
+    })
 }
 
 const GetMovieDetails = (id) => {
@@ -55,12 +59,31 @@ const GetMovieDetails = (id) => {
             return obj
         });
     });
-    returnDataObj = {
-        movies: []
+    obj = {
+        movieData: [],
+        comments: []
     }
-    return returnDataObj
+    return obj
 }
 
+const GetDirectors = (id) => {
+
+}
+const GetActors = (id) => {
+    
+}
+const GetGenres = (id) => {
+    sql = ` SELECT distinct( c.genre ) 
+    FROM Categorizes c, Movies m  
+    WHERE "${id}" = c.viewId
+    `
+}
+const GetTags = (id) => {
+ 
+}
+const GetComments = (id) => {
+    
+}
 module.exports = {
     GetMoviesBy: GetMoviesBy,
     GetMovieDetails: GetMovieDetails
