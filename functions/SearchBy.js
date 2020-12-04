@@ -41,29 +41,31 @@ const GetMoviesBy = (type, param) => {
 }
 
 const GetMovieDetails = (id) => {
-    sql = `SELECT distinct * FROM Movies Where MovieId *${db.escape(id)}*`;
-    db.query(sql, (err, result) => {
-        if (err) throw err;
-        console.log(result);
-        result.forEach(element => {
-            data = [element.Title, element.RtAllCriticsRating]
-            data.push(GetDirectors(id))
-            data.push(GetActors(id))
-            data.push(GetGenres(id))
-            data.push(GetTags(id))
-            comment = GetComments(id)
-            obj = {
-                movieData: data,
-                comments: comment
-            }
-            return obj
+    return new Promise((resolve,reject) => {
+        sql = `SELECT distinct * FROM Movies Where MovieId *${db.escape(id)}*`;
+        db.query(sql, (err, result) => {
+            if (err) throw err;
+            console.log(result);
+            result.forEach(element => {
+                data = [element.Title, element.RtAllCriticsRating]
+                data.push(GetDirectors(id))
+                data.push(GetActors(id))
+                data.push(GetGenres(id))
+                data.push(GetTags(id))
+                comment = GetComments(id)
+                obj = {
+                    movieData: data,
+                    comments: comment
+                }
+                return obj
+            });
         });
-    });
-    obj = {
-        movieData: [],
-        comments: []
-    }
-    return obj
+        obj = {
+            movieData: [],
+            comments: []
+        }
+        return obj
+    })
 }
 
 const GetDirectors = (id) => {

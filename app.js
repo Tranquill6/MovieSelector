@@ -27,6 +27,18 @@ app.get('/Search', (req, res) => {
 app.get('/Results', async (req, res) => {
     searchParam = req.query.param
     searchType = req.query.type
+    Search.GetMoviesBy(searchType,searchParam).then( (results) => {
+        Data = results
+        if(Data.movies.length != 0){
+            res.render('results.pug', Data)
+        } else {
+            Data = {
+                msg: "There were no movies found with the given information!"
+            }
+            res.render('message.pug', Data)
+        }
+        
+    })
 })
 
 app.get('/movie/:movieId', (req, res) => {
