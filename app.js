@@ -44,15 +44,3 @@ app.get('/example/:title', async (req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })
-
-function getColour(username, roomCount) {
-    return new Promise((resolve, reject) => {
-      connection.query(
-        "SELECT hexcode FROM colours WHERE precedence = ?",
-        [roomCount],
-        (err, result) => {
-          return err ? reject(err) : resolve(result[0].hexcode);
-        }
-      );
-    });
-  }
