@@ -7,6 +7,8 @@ const port = process.env.PORT || 3000;
 const { check, validationResult } = require('express-validator');
 const credentials = require('./credentials.json')
 
+
+
 function mySQLConnection() {
     return mysql.createConnection({
       host: credentials.host,
@@ -35,6 +37,12 @@ app.get('/Results', async (req, res) => {
     searchParam = req.query.param
     searchType = req.query.type
 
+    
+app.get('/Movie/:movieId', (req, res) => {
+    movieId = req.params['movieId']
+    
+    res.render('search.pug')
+})
     //
     // Add Switch case and search bar value validation in the future
     //
