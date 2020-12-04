@@ -4,12 +4,31 @@ const db = database.db
 
 const GetMoviesBy = (type, param) => {
     return new Promise((resolve,reject) => {
+        switch (type){
+            case 'title':
+                sql = `SELECT distinct Title, MovieId FROM Movies Where Title LIKE '${param}'`;
+                break;
+            case 'genre':
+                sql = `SELECT distinct m.Title, m.MovieId FROM Categorizes c, Movies m  WHERE  m.MovieId = c.viewId AND c.genre = '${param}'`
+                break;
+            case 'actor':
+                sql = `SELECT distinct m.Title, m.MovieId FROM Actors a, Movies m  WHERE  m.MovieId = a.viewId AND a.ActorName = '${param}'`
+                break;
+            case 'director':
+                sql = `SELECT m.Title, m.MovieId FROM DirectsIn d, Movies m WHERE d.directorID = (SELECT directorID FROM Directors WHERE directorName = '${param}' LIMIT 1) AND m.MovieId = d.viewID`
+                break;
+            case 'tag':
+                sql = `SELECT m.Title, m.MovieId FROM Tags t, Movies m WHERE t.tagID = (SELECT TagId FROM TagTitles WHERE TagName = '${param}' LIMIT 1) AND m.MovieId = t.viewID`
+                break;
+            default:
+                sql = `SELECT distinct m.Title, m.MovieId FROM Movies Where Title LIKE '${param}'`;
+        }
         try{
-            sql = `SELECT distinct * FROM Movies Where ${type} LIKE '${param}'`;
             console.log(sql)
             _movies = new Array()
             returnDataObj = {}
             db.query(sql, (err, result) => {
+                if(err) throw err
                 result.forEach(element => {
                     obj = {
                     title: element.Title,
