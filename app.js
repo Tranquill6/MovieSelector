@@ -40,9 +40,20 @@ app.get('/Results', async (req, res) => {
     })
 })
 
+app.get('/SimilarMovie/:movieId'), (req, res)=> {
+    movieId = req.params['movieId']
+    SimilarMovie.GetMovie(movieId).then((results) => {
+        Data = results
+        res.render('movie.pug', Data)
+    })
+}
+
 app.get('/movie/:movieId', (req, res) => {
     movieId = req.params['movieId']
-    res.render('search.pug')
+    Search.GetMovieDetails(movieId).then((results) => {
+        Data = results
+        res.render('movie.pug', Data)
+    })
 })
 
 app.listen(port, () => {
