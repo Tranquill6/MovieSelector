@@ -31,6 +31,7 @@ app.get('/Results', async (req, res) => {
             res.render('results.pug', Data)
         } else {
             Data = {
+                link: "/",
                 msg: "There were no movies found with the given information!"
             }
             res.render('message.pug', Data)
@@ -51,12 +52,14 @@ app.get('/SimilarMovie/:movieId', (req, res)=> {
             }
             catch (err) {
                 Data = {
+                    link: "/",
                     msg: "Failed to Retrieve Movie"
                 }
                 res.render('message.pug', Data)
             }
         }).catch((err) => {
             Data = {
+                link: "/",
                 msg: "Failed to Retrieve Movie"
             }
             res.render('message.pug', Data)
@@ -76,12 +79,14 @@ app.get('/movie/:movieId', (req, res) => {
         }
         catch (err) {
             Data = {
+                link: "/",
                 msg: "Failed to Retrieve Movie"
             }
             res.render('message.pug', Data)
         }
     }).catch((err) => {
         Data = {
+            link: "/",
             msg: "Failed to Retrieve Movie"
         }
         res.render('message.pug', Data)
@@ -93,6 +98,7 @@ app.get('/ratemovie/:movieId/:rating', (req, res) => {
     rating = req.params['rating']
     Rate.addRating(movieId, rating).then((results) => {
         Data = {
+            link: `movie/${movieId}`,
             msg: "Your rating was counted!"
         }
         res.render('message.pug', Data)
@@ -104,7 +110,20 @@ app.get('/comment/:movieId/:comment', (req, res) => {
     comment = req.params['comment']
     Comment.makeComment(comment, movieId).then((results) => {
         Data = {
+            link: `movie/${movieId}`,
             msg: "Your comment was added!"
+        }
+        res.render('message.pug', Data)
+    })
+})
+
+app.get('/delete/:content/:movieId', (req, res) => {
+    movieId = req.params['movieId']
+    content = req.params['content']
+    Comment.removeComment(movieId, content).then((results) => {
+        Data = {
+            link: `movie/${movieId}`,
+            msg: `Your comment was removed!`
         }
         res.render('message.pug', Data)
     })
@@ -112,6 +131,7 @@ app.get('/comment/:movieId/:comment', (req, res) => {
 
 app.get('*', (req, res) => {
     Data = {
+        link: "/",
         msg: "Sorry, We Could Not Find what you were looking for!"
     }
     res.render('message.pug', Data)
