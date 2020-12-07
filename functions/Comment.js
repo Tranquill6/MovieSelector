@@ -27,6 +27,7 @@ const removeComment = (id) => {
         })
     })
 }
+// Removing this feature
 
 const editComment = (id, text) => {
     return new Promise((resolve, reject) => {
