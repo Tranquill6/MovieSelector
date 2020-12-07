@@ -120,8 +120,8 @@ app.get('/ratemovie/:movieId/:rating', (req, res) => {
 
 app.get('/comment/:movieId/:comment', (req, res) => {
     movieId = req.params['movieId']
-    rating = req.params['comment']
-    Rate.addRating(movieId, rating).then((results) => {
+    comment = req.params['comment']
+    Comment.makeComment(comment, movieId).then((results) => {
         movieId = req.params['movieId']
         Search.GetMovieDetails(movieId).then((results) => {
             try{
