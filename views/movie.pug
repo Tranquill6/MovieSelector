@@ -47,4 +47,6 @@ html
         h3 Comment Section
         ol
             each item in Data.results.comments
-                li=`${item} `
+                li=`${item} ` 
+                    a(href=`/delete/${item}/${Data.id}`) 
+                        button(Style="background-color: pink") Delete

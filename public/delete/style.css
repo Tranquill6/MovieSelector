@@ -1,0 +1,54 @@
+.header-ul {
+    display: inline;
+    padding: 1%;
+}
+
+.header-li {
+    display: inline-block;
+    padding-left:1%;
+}
+
+.header-div {
+    background-color: grey;
+}
+
+body {
+    background-color: white;
+}
+
+a {
+    color: #000000;
+}
+
+a:hover {
+    color: darkblue;
+}
+
+.avatar {
+    width: 300px;
+    border-radius: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+.center{
+    padding-top: 3%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+.container {
+    width: 100%;
+}
+
+.floated-right{
+    width: 60%;
+    float: right;
+}
+
+.floated-left{
+    width: 60%;
+    float: right;
+}
