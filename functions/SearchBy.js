@@ -54,8 +54,8 @@ const GetMoviesBy = (type, param) => {
     })
 }
 
-const GetMovieDetails = (id) => {
-    return new Promise((resolve,reject) => {
+const GetMovieDetails = async (id) => {
+    return new Promise( async (resolve,reject) => {
         sql = `SELECT DISTINCT m.title, m.rtAllCriticsRating, d2.directorName, a.actorName, g.genre, t2.TagName
         FROM Movies AS m
         INNER JOIN Actors AS a
@@ -67,7 +67,7 @@ const GetMovieDetails = (id) => {
         ON g.movieId = m.movieId AND a.movieId=m.movieId AND t1.movieId=m.movieId AND t1.tagId=t2.tagId AND d1.movieId=m.movieId AND d1.directorId=d2.directorId AND m.movieId='${id}';
         `
         console.log(sql)
-        db.query(sql, (err, result) => {
+        const rows = await new Promise((rslv, rjct) => db.query(sql, (err, result) => {
             if (err) throw err
             console.log(result)
             if(result.length != 0){
@@ -77,6 +77,7 @@ const GetMovieDetails = (id) => {
                 actors = []
                 genres = []
                 tags = []
+
                 result.forEach(element => { 
                     if(!actors.includes(element.actorName))
                         actors.push(element.actorName)
@@ -85,26 +86,29 @@ const GetMovieDetails = (id) => {
                     if(!tags.includes(element.tagName))
                         tags.push(element.tagName)
                 });
+
                 obj = {
                     title: Title,
                     director: Dir,
                     actors: actors,
                     genres: genres,
                     rating: Rating,
-                    tags: tags,
+                    tags: tags
                 }
-            resolve(obj)
+                rslv(obj)
             }
-        });
         obj = {
             title: '',
             director: '',
             actors: [],
             genres: [],
             rating: '',
-            tags: [],
+            tags: []
         }
-        reject(obj)
+        rjct(obj)
+    }))
+    console.log(rows)
+    resolve(rows)
     })
 }
 
