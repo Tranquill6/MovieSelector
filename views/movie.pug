@@ -29,17 +29,16 @@ html
                 li(style="display: inline")=`${item}, `
 
         h3 Rate the Movie!  
-             form(action=`/ratemovie/${Data.id}` method="post" style="padding-left:10px; width: 100%")
+             form(id="change" action=`/ratemovie/${Data.id}/` method="get" style="padding-left:10px; width: 100%")
                 input(type="text" id="rateBtn" name="rating" placeholder="#/10")
                 button(type="submit") Rate
-
-        h3 Comment Section
 
         h4 Make a Comment:             
         form(action=`/comment/${Data.id}` method="post" style="padding-left:10px; width: 100%")
                 input(type="text" id="commentBtn" name="comment" placeholder="")
-                button(type="submit") Rate
+                button(type="submit") Comment
 
+        h3 Comment Section
         ul(style="list-style: none")
             each item in Data.results.tags
                 li(style="display: inline")=`${item}, `
