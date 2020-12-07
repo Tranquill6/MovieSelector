@@ -13,18 +13,16 @@ const makeComment = (text, movieID) => {
         sql = `INSERT INTO Comments(movieId, content) VALUES (${movieID},${db.escape(text)})`;
         db.query(sql, (err, result) => {
             if (err) throw err;
-            console.log(result);
         })
         resolve(true)
     })
 }
 
-const removeComment = (id) => {
+const removeComment = (movieId, content) => {
     return new Promise((resolve, reject) => {
-        sql = `DELETE FROM Comments WHERE commentId='${id}'`;
+        sql = `DELETE FROM Comments WHERE content='${content}' AND movieId='${movieId}'`;
         db.query(sql, (err, result) => {
             if (err) throw err;
-            console.log(result);
         })
         resolve(true)
     })
