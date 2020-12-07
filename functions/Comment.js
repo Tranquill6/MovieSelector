@@ -10,7 +10,7 @@ const db = database.db
 
 const makeComment = (text, movieID) => {
     return new Promise((resolve, reject) => {
-        sql = `INSERT INTO Comments('MovieId', 'content') VALUES (*${db.escape(movieID)}*,*${db.escape(text)}*)`;
+        sql = `INSERT INTO Comments('MovieId', 'content') VALUES (${movieID},${db.escape(text)})`;
         db.query(sql, (error, result) => {
             if (err) throw err;
             console.log(result);
@@ -20,18 +20,7 @@ const makeComment = (text, movieID) => {
 
 const removeComment = (id) => {
     return new Promise((resolve, reject) => {
-        sql = `DELETE FROM Comments WHERE commentId *${db.escape(id)}*`;
-        db.query(sql, (error, result) => {
-            if (err) throw err;
-            console.log(result);
-        })
-    })
-}
-// Removing this feature
-
-const editComment = (id, text) => {
-    return new Promise((resolve, reject) => {
-        sql = `UPDATE Comments SET content *${db.escape(text)}* WHERE commentId *${db.escape(id)}*`;
+        sql = `DELETE FROM Comments WHERE commentId='${id}'`;
         db.query(sql, (error, result) => {
             if (err) throw err;
             console.log(result);
@@ -41,6 +30,5 @@ const editComment = (id, text) => {
 
 module.exports = {
     makeComment: makeComment,
-    removeComment: removeComment,
-    editComment: editComment
+    removeComment: removeComment
 }
