@@ -8,16 +8,16 @@ const GetMoviesBy = (type, param) => {
                 sql = `SELECT distinct title, movieId FROM Movies Where title LIKE '${param}'`;
                 break;
             case 'genre':
-                sql = `SELECT distinct m.title, m.movieId FROM Categorizes c, Movies m  WHERE  m.movieId = c.viewId AND c.genre = '${param}'`
+                sql = `SELECT distinct m.title, m.movieId FROM Categorizes c, Movies m  WHERE  m.movieId = c.movieId AND c.genre = '${param}'`
                 break;
             case 'actor':
-                sql = `SELECT distinct m.title, m.movieId FROM Actors a, Movies m  WHERE  m.movieId = a.viewId AND a.actorName = '${param}'`
+                sql = `SELECT distinct m.title, m.movieId FROM Actors a, Movies m  WHERE  m.movieId = a.movieId AND a.actorName = '${param}'`
                 break;
             case 'director':
-                sql = `SELECT m.title, m.movieId FROM DirectsIn d, Movies m WHERE d.directorId = (SELECT directorId FROM Directors WHERE directorName = '${param}' LIMIT 1) AND m.movieId = d.viewId`
+                sql = `SELECT m.title, m.movieId FROM DirectsIn d, Movies m WHERE d.directorId = (SELECT directorId FROM Directors WHERE directorName = '${param}' LIMIT 1) AND m.movieId = d.movieId`
                 break;
             case 'tag':
-                sql = `SELECT m.title, m.movieId FROM Tags t, Movies m WHERE t.tagId = (SELECT tagId FROM tagTitles WHERE tagName = '${param}' LIMIT 1) AND m.movieId = t.viewId`
+                sql = `SELECT m.title, m.movieId FROM Tags t, Movies m WHERE t.tagId = (SELECT tagId FROM tagTitles WHERE tagName = '${param}' LIMIT 1) AND m.movieId = t.movieId`
                 break;
             default:
                 sql = `SELECT distinct m.title, m.movieId FROM Movies Where title LIKE '${param}'`;
