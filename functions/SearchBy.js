@@ -52,8 +52,8 @@ const GetMoviesBy = (type, param) => {
 }
 
 const GetMovieDetails = async (id) => {
-    return new Promise( async (resolve,reject) => {
-        sql = `SELECT DISTINCT m.title, m.rtAllCriticsRating, d2.directorName, a.actorName, g.genre, t2.tagName
+    return new Promise( async (resolve,reject) => { 
+        sql = `SELECT DISTINCT m.title, m.rtAllCriticsRating, d2.directorName, a.actorName, g.genre, t2.tagName, c.content
         FROM Movies AS m
         INNER JOIN Actors AS a
         INNER JOIN Tags AS t1
@@ -61,7 +61,8 @@ const GetMovieDetails = async (id) => {
         INNER JOIN Categorizes AS g
         INNER JOIN TagTitles AS t2
         INNER JOIN Directors AS d2
-        ON g.movieId = m.movieId AND a.movieId=m.movieId AND t1.movieId=m.movieId AND t1.tagId=t2.tagId AND d1.movieId=m.movieId AND d1.directorId=d2.directorId AND m.movieId='${id}';
+        INNER JOIN Comments AS c
+        ON g.movieId = '${id}' AND a.movieId='${id}' AND t1.movieId='${id}' AND t1.tagId=t2.tagId AND d1.movieId='${id}' AND d1.directorId=d2.directorId AND m.movieId='${id}' AND (c.movieId = '${id}' OR c.movieId = 'null')
         `
         const rows = await new Promise((rslv, rjct) => db.query(sql, (err, result) => {
             if (err) throw err
@@ -72,7 +73,7 @@ const GetMovieDetails = async (id) => {
                 actors = []
                 genres = []
                 tags = []
-
+                comments = []
                 result.forEach(element => { 
                     if(!actors.includes(element.actorName))
                         actors.push(element.actorName)
@@ -80,6 +81,8 @@ const GetMovieDetails = async (id) => {
                         genres.push(element.genre)
                     if(!tags.includes(element.tagName))
                         tags.push(element.tagName)
+                    if(!tags.includes(element.content))
+                        comments.push(element.cotent)
                 });
 
                 obj = {
@@ -88,7 +91,8 @@ const GetMovieDetails = async (id) => {
                     actors: actors,
                     genres: genres,
                     rating: Rating,
-                    tags: tags
+                    tags: tags,
+                    comments: comments
                 }
                 rslv(obj)
             }
@@ -98,7 +102,8 @@ const GetMovieDetails = async (id) => {
             actors: [],
             genres: [],
             rating: '',
-            tags: []
+            tags: [],
+            comments: []
         }
         rjct(obj)
     }))
