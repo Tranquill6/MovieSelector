@@ -72,6 +72,13 @@ app.get('/movie/:movieId', (req, res) => {
     })
 })
 
+app.post('/ratemovie/:movieId'), (req, res) => {
+    movieId = req.params['movieId']
+    Rate.addRating(movieId, req.body.rating).then((results) => {
+        res.send(results)
+    })
+}
+
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })
