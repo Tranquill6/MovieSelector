@@ -51,8 +51,13 @@ app.get('/SimilarMovie/:movieId'), (req, res)=> {
 app.get('/movie/:movieId', (req, res) => {
     movieId = req.params['movieId']
     Search.GetMovieDetails(movieId).then((results) => {
-        Data = results
-        res.send(Data)
+        try{
+            Data = results
+            res.send(Data)
+        }
+        catch (err) {
+            res.send(err)
+        }
     })
 })
 

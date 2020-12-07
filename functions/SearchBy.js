@@ -69,9 +69,9 @@ const GetMovieDetails = (id) => {
             Title = result[0].title
             Rating = result[0].rtAllCriticsRating
             Dir = result[0].directorName
-            actorName = []
-            genre = []
-            tagName = []
+            actors = []
+            genres = []
+            tags = []
             result.forEach(element => { 
                 if(!actors.includes(element.actorname))
                     actors.push(element.actorname)
