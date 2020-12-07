@@ -81,8 +81,8 @@ const GetMovieDetails = async (id) => {
                         genres.push(element.genre)
                     if(!tags.includes(element.tagName))
                         tags.push(element.tagName)
-                    if(!tags.includes(element.content))
-                        comments.push(element.cotent)
+                    if(!tags.includes(String(element.content)))
+                        comments.push(String(element.content))
                 });
 
                 obj = {
