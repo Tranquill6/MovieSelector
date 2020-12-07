@@ -5,7 +5,7 @@ const GetMoviesBy = (type, param) => {
     return new Promise((resolve,reject) => {
         switch (type){
             case 'title':
-                sql = `SELECT distinct title, movieId FROM Movies Where title LIKE '${param}'`;
+                sql = `SELECT distinct title, movieId FROM Movies Where title LIKE '%${param}%'`;
                 break;
             case 'genre':
                 sql = `SELECT distinct m.title, m.movieId FROM Categorizes c, Movies m  WHERE  m.movieId = c.movieId AND c.genre = '${param}'`
