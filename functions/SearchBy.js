@@ -5,22 +5,22 @@ const GetMoviesBy = (type, param) => {
     return new Promise((resolve,reject) => {
         switch (type){
             case 'title':
-                sql = `SELECT distinct Title, MovieId FROM Movies Where Title LIKE '${param}'`;
+                sql = `SELECT distinct title, movieId FROM Movies Where title LIKE '${param}'`;
                 break;
             case 'genre':
-                sql = `SELECT distinct m.Title, m.MovieId FROM Categorizes c, Movies m  WHERE  m.MovieId = c.viewId AND c.genre = '${param}'`
+                sql = `SELECT distinct m.title, m.movieId FROM Categorizes c, Movies m  WHERE  m.movieId = c.viewId AND c.genre = '${param}'`
                 break;
             case 'actor':
-                sql = `SELECT distinct m.Title, m.MovieId FROM Actors a, Movies m  WHERE  m.MovieId = a.viewId AND a.ActorName = '${param}'`
+                sql = `SELECT distinct m.title, m.movieId FROM Actors a, Movies m  WHERE  m.movieId = a.viewId AND a.actorName = '${param}'`
                 break;
             case 'director':
-                sql = `SELECT m.Title, m.MovieId FROM DirectsIn d, Movies m WHERE d.directorID = (SELECT directorID FROM Directors WHERE directorName = '${param}' LIMIT 1) AND m.MovieId = d.viewID`
+                sql = `SELECT m.title, m.movieId FROM DirectsIn d, Movies m WHERE d.directorId = (SELECT directorId FROM Directors WHERE directorName = '${param}' LIMIT 1) AND m.movieId = d.viewId`
                 break;
             case 'tag':
-                sql = `SELECT m.Title, m.MovieId FROM Tags t, Movies m WHERE t.tagID = (SELECT TagId FROM TagTitles WHERE TagName = '${param}' LIMIT 1) AND m.MovieId = t.viewID`
+                sql = `SELECT m.title, m.movieId FROM Tags t, Movies m WHERE t.tagId = (SELECT tagId FROM tagTitles WHERE tagName = '${param}' LIMIT 1) AND m.movieId = t.viewId`
                 break;
             default:
-                sql = `SELECT distinct m.Title, m.MovieId FROM Movies Where Title LIKE '${param}'`;
+                sql = `SELECT distinct m.title, m.movieId FROM Movies Where title LIKE '${param}'`;
         }
         try{
             console.log(sql)
@@ -30,8 +30,8 @@ const GetMoviesBy = (type, param) => {
                 if(err) throw err
                 result.forEach(element => {
                     obj = {
-                    title: element.Title,
-                    id: element.MovieId
+                    title: element.title,
+                    id: element.movieId
                 }
                 _movies.push(obj)
                 });
@@ -54,15 +54,15 @@ const GetMoviesBy = (type, param) => {
 
 const GetMovieDetails = (id) => {
     return new Promise((resolve,reject) => {
-        sql = ` SELECT m.Title, m.rtAllCriticsRating, d2.directorName, a.actorName, g.genre, t2.value
-            FROM Movies AS m
-            INNER JOIN Actors AS a
-            INNER JOIN tags AS t1
-            INNER JOIN directsin AS d1
-            INNER JOIN movie_genres AS g
-            INNER JOIN tagsTitles AS t2
-            INNER JOIN movie_directors AS d2
-            ON g.movieID = m.movieID AND a.movieID=m.movieID AND t1.movieID=m.movieID AND t1.tagID=t2.id AND d1.movieID=m.movieID AND d1.directorID=d2.directorID AND m.movieID='${id}';
+        sql = `SELECT m.title, m.rtAllCriticsRating, d2.directorName, a.actorName, g.genre, t2.TagName
+        FROM Movies AS m
+        INNER JOIN Actors AS a
+        INNER JOIN Tags AS t1
+        INNER JOIN DirectsIn AS d1
+        INNER JOIN Categorizes AS g
+        INNER JOIN TagTitles AS t2
+        INNER JOIN Directors AS d2
+        ON g.movieId = m.movieId AND a.movieId=m.movieId AND t1.movieId=m.movieId AND t1.tagId=t2.tagId AND d1.movieId=m.movieId AND d1.directorId=d2.directorId AND m.movieId='${id}'
         `
         db.query(sql, (err, result) => {
             if (err) throw err;

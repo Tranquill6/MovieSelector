@@ -52,7 +52,7 @@ app.get('/movie/:movieId', (req, res) => {
     movieId = req.params['movieId']
     Search.GetMovieDetails(movieId).then((results) => {
         Data = results
-        res.render('movie.pug', Data)
+        res.send(Data)
     })
 })
 
