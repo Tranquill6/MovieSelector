@@ -11,7 +11,7 @@ const db = database.db
 const makeComment = (text, movieID) => {
     return new Promise((resolve, reject) => {
         sql = `INSERT INTO Comments(movieId, content) VALUES (${movieID},${db.escape(text)})`;
-        db.query(sql, (error, result) => {
+        db.query(sql, (err, result) => {
             if (err) throw err;
             console.log(result);
         })
@@ -21,7 +21,7 @@ const makeComment = (text, movieID) => {
 const removeComment = (id) => {
     return new Promise((resolve, reject) => {
         sql = `DELETE FROM Comments WHERE commentId='${id}'`;
-        db.query(sql, (error, result) => {
+        db.query(sql, (err, result) => {
             if (err) throw err;
             console.log(result);
         })
