@@ -37,10 +37,12 @@ html
                 input(type="text" id="rateBtn" name="rating" placeholder="#/10")
                 button(type="submit") Rate
 
-        h4 Make a Comment:             
-        form(action=`/comment/${Data.id}` method="post" style="padding-left:10px; width: 100%")
-                input(type="text" id="commentBtn" name="comment" placeholder="")
-                button(type="submit") Comment
+        h4 Make a Comment:
+            br
+            input(id="commentContent" type="text" style="width:30%; height: 100px;")
+            br
+            button Submit
+
 
         h3 Comment Section
         ul(style="list-style: none")
