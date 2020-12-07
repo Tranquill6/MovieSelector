@@ -15,6 +15,7 @@ const makeComment = (text, movieID) => {
             if (err) throw err;
             console.log(result);
         })
+        resolve(true)
     })
 }
 
@@ -25,6 +26,7 @@ const removeComment = (id) => {
             if (err) throw err;
             console.log(result);
         })
+        resolve(true)
     })
 }
 

@@ -131,13 +131,13 @@ app.get('/comment/:movieId/:comment', (req, res) => {
                 }
                 res.render('movie.pug', Data)
             }
-            catch (err) {
+            catch {
                 Data = {
                     msg: "Failed to Retrieve Movie"
                 }
                 res.render('message.pug', Data)
             }
-        }).catch((err) => {
+        }).catch(() => {
             Data = {
                 msg: "Failed to Retrieve Movie"
             }
