@@ -56,7 +56,7 @@ const GetMoviesBy = (type, param) => {
 
 const GetMovieDetails = async (id) => {
     return new Promise( async (resolve,reject) => {
-        sql = `SELECT DISTINCT m.title, m.rtAllCriticsRating, d2.directorName, a.actorName, g.genre, t2.TagName
+        sql = `SELECT DISTINCT m.title, m.rtAllCriticsRating, d2.directorName, a.actorName, g.genre, t2.tagName
         FROM Movies AS m
         INNER JOIN Actors AS a
         INNER JOIN Tags AS t1

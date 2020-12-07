@@ -9,3 +9,10 @@ html
     body
         .header
             include header.pug
+            h2=Data.title
+            h3=`By ${Data.director}`
+            br
+            h3 Actors
+                ul(style="list-style: none")
+                    each item in Data.actors
+                        li(style="display: inline")=`${item} ,`

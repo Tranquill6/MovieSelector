@@ -53,13 +53,19 @@ app.get('/movie/:movieId', (req, res) => {
     Search.GetMovieDetails(movieId).then((results) => {
         try{
             Data = results
-            res.send(Data)
+            res.render('movie.pug', Data)
         }
         catch (err) {
-            res.send(err)
+            Data = {
+                msg: "Failed to Retrieve Movie"
+            }
+            res.render('message.pug', )
         }
     }).catch((err) => {
-        res.send(err)
+        Data = {
+            msg: "Failed to Retrieve Movie"
+        }
+        res.render('message.pug', )
     })
 })
 
