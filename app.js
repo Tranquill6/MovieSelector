@@ -92,27 +92,10 @@ app.get('/ratemovie/:movieId/:rating', (req, res) => {
     movieId = req.params['movieId']
     rating = req.params['rating']
     Rate.addRating(movieId, rating).then((results) => {
-        movieId = req.params['movieId']
-        Search.GetMovieDetails(movieId).then((results) => {
-            try{
-                Data = {
-                    results: results,
-                    id: movieId
-                }
-                res.render('movie.pug', Data)
-            }
-            catch (err) {
-                Data = {
-                    msg: "Failed to Retrieve Movie"
-                }
-                res.render('message.pug', Data)
-            }
-        }).catch((err) => {
-            Data = {
-                msg: "Failed to Retrieve Movie"
-            }
-            res.render('message.pug', Data)
-        })
+        Data = {
+            msg: "Your rating was counted!"
+        }
+        res.render('message.pug', Data)
     })
 })
 
