@@ -45,6 +45,6 @@ html
                 button Submit
 
         h3 Comment Section
-        ul(style="list-style: none")
+        ol
             each item in Data.results.comments
-                ol=`${item} `
+                li=`${item} `

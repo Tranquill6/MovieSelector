@@ -84,7 +84,8 @@ const GetMovieDetails = async (id) => {
                     if(!comments.includes(element.content))
                         comments.push(element.content)
                 });
-
+                val = comments.pop()
+                comments[0] = val
                 obj = {
                     title: Title,
                     director: Dir,
