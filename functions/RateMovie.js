@@ -13,11 +13,15 @@ const addRating = (id, userRating) => {
         console.log(sql)
         db.query(sql, (err, result) => {
             if (err) throw err
-            rating = result.rtAllCriticsRating
-            numOfReviews = result.rtAllCriticsNumReviews
-            newRating = (rating*numOfReviews+userRating)/(numOfReviews+1)
+            rating = parseFloat(result[0].rtAllCriticsRating)
+            numOfReviews = parseInt(result[0].rtAllCriticsNumReviews)
+            console.log(rating)
+            console.log(numOfReviews)
+            newRating = (rating*numOfReviews+parseFloat(userRating))/(numOfReviews+1)
             finalRating = newRating.toFixed(1)
-            numOfReviews+=1
+            numOfReviews += 1
+            console.log(finalRating)
+            console.log(numOfReviews)
 
             sql = `UPDATE Movies SET rtAllCriticsRating='${finalRating}', rtAllCriticsNumReviews='${numOfReviews}' WHERE movieId='${id}'`
             db.query(sql, (err, result) => {
