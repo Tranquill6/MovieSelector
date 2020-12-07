@@ -26,3 +26,7 @@ const addRating = (id, userRating) => {
         })
     })
 }
+
+module.exports = {
+    addRating: addRating
+}
