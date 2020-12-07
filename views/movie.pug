@@ -13,6 +13,10 @@ html
         h1=`${Data.results.title}   [${Data.results.rating}/10]` 
         h3=`Directed By ${Data.results.director}`
         br
+        h2
+            em
+                a(href=`/SimilarMovie/${Data.id}`) Find a Similar Movie!
+        br
         h3 Actors
         ul(style="list-style: none")
             each item in Data.results.actors

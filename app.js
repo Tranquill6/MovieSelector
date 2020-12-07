@@ -40,13 +40,31 @@ app.get('/Results', async (req, res) => {
     })
 })
 
-app.get('/SimilarMovie/:movieId'), (req, res)=> {
+app.get('/SimilarMovie/:movieId', (req, res)=> {
     movieId = req.params['movieId']
-    SimilarMovie.GetMovie(movieId).then((results) => {
-        Data = results
-        res.render('movie.pug', Data)
+    SimilarMovie.GetMovie(movieId).then((RES) => {
+        Search.GetMovieDetails(RES).then((results) => {
+            try{
+                Data = {
+                    results: results,
+                    id: RES
+                }
+                res.render('movie.pug', Data)
+            }
+            catch (err) {
+                Data = {
+                    msg: "Failed to Retrieve Movie"
+                }
+                res.render('message.pug', Data)
+            }
+        }).catch((err) => {
+            Data = {
+                msg: "Failed to Retrieve Movie"
+            }
+            res.render('message.pug', Data)
+        })
     })
-}
+})
 
 app.get('/movie/:movieId', (req, res) => {
     movieId = req.params['movieId']
