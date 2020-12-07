@@ -9,10 +9,25 @@ html
     body
         .header
             include header.pug
-            h2=Data.title
-            h3=`By ${Data.director}`
+            h2=`${Data.title}   [${Data.rating}/10]`
+            h3=`Directed By ${Data.director}`
             br
             h3 Actors
-                ul(style="list-style: none")
-                    each item in Data.actors
-                        li(style="display: inline")=`${item} ,`
+            ul(style="list-style: none")
+                each item in Data.actors
+                    li(style="display: inline")=`${item}, `
+
+            h3 Genres
+            ul(style="list-style: none")
+                each item in Data.genres
+                    li(style="display: inline")=`${item}, `
+            
+            h3 tags
+            ul(style="list-style: none")
+                each item in Data.tags
+                    li(style="display: inline")=`${item}, `
+
+            h3 Comment Section
+            ul(style="list-style: none")
+                each item in Data.tags
+                    li(style="display: inline")=`${item}, `
