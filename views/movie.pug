@@ -6,28 +6,34 @@ html
         link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css', integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T', crossorigin='anonymous')
         link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Roboto')
         link(rel='stylesheet', href='../style.css')
+        script(src='../movie.js')
     body
         .header
             include header.pug
-        h1=`${Data.title}   [${Data.rating}/10]`
+        h1=`${Data.results.title}   [${Data.results.rating}/10]` 
         h3=`Directed By ${Data.director}`
         br
         h3 Actors
         ul(style="list-style: none")
-            each item in Data.actors
+            each item in Data.results.actors
                 li(style="display: inline")=`${item}, `
 
         h3 Genres
         ul(style="list-style: none")
-            each item in Data.genres
+            each item in Data.results.genres
                 li(style="display: inline")=`${item}, `
             
         h3 tags
         ul(style="list-style: none")
-            each item in Data.tags
+            each item in Data.results.tags
                 li(style="display: inline")=`${item}, `
+
+        h3 Rate the Movie!  
+             form(action=`/ratemovie/${Data.id}` method="post" style="padding-left:10px; width: 100%")
+                input(type="text" id="rateBtn" name="param" placeholder="#/10" style="padding-left:100px; width: 5%;")
+                button(type="submit") Rate
 
         h3 Comment Section
         ul(style="list-style: none")
-            each item in Data.tags
+            each item in Data.results.tags
                 li(style="display: inline")=`${item}, `

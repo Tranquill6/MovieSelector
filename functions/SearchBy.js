@@ -17,7 +17,7 @@ const GetMoviesBy = (type, param) => {
                 sql = `SELECT m.title, m.movieId FROM DirectsIn d, Movies m WHERE d.directorId = (SELECT directorId FROM Directors WHERE directorName = '${param}' LIMIT 1) AND m.movieId = d.movieId`
                 break;
             case 'tag':
-                sql = `SELECT m.title, m.movieId FROM Tags t, Movies m WHERE t.tagId = (SELECT tagId FROM tagTitles WHERE tagName = '${param}' LIMIT 1) AND m.movieId = t.movieId`
+                sql = `SELECT m.title, m.movieId FROM Tags t, Movies m WHERE t.tagId = (SELECT tagId FROM TagTitles WHERE tagName = '${param}' LIMIT 1) AND m.movieId = t.movieId`
                 break;
             default:
                 sql = `SELECT distinct m.title, m.movieId FROM Movies Where title LIKE '${param}'`;
