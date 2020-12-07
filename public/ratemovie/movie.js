@@ -12,7 +12,6 @@ window.addEventListener('load', function () {
     })
     document.getElementById('commentContent').addEventListener('change', () =>{
         comment = document.getElementById('commentContent')
-        console.log(String(comment.value).length)
         if(String(comment.value).length > 200){
             comment.value = String(comment.value).substring(0,200)
         }

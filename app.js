@@ -4,13 +4,11 @@ const path = require('path');
 const { query } = require('express');
 
 const port = process.env.PORT || 3000;
-const { check, validationResult } = require('express-validator');
 const Comment = require('./functions/Comment.js')
 const Search = require('./functions/SearchBy.js')
 const Rate = require('./functions/RateMovie.js')
 const SimilarMovie = require('./functions/SimilarMovie.js')
 const Database = require('./functions/Connect.js')
-const db = Database.db
 
 app.set("view engine", "pug")
 app.set('views', path.join(__dirname, 'views'));
