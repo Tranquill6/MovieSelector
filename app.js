@@ -73,11 +73,31 @@ app.get('/movie/:movieId', (req, res) => {
 })
 
 app.get('/ratemovie/:movieId/:rating', (req, res) => {
-    movieId = req.params
-    res.send(movieId)
-    //Rate.addRating(movieId, req.body.rating).then((results) => {
-    //    res.send(results)
-    //})
+    movieId = req.params['movieId']
+    rating = req.params['rating']
+    Rate.addRating(movieId, rating).then((results) => {
+        movieId = req.params['movieId']
+        Search.GetMovieDetails(movieId).then((results) => {
+            try{
+                Data = {
+                    results: results,
+                    id: movieId
+                }
+                res.render('movie.pug', Data)
+            }
+            catch (err) {
+                Data = {
+                    msg: "Failed to Retrieve Movie"
+                }
+                res.render('message.pug', Data)
+            }
+        }).catch((err) => {
+            Data = {
+                msg: "Failed to Retrieve Movie"
+            }
+            res.render('message.pug', Data)
+        })
+    })
 })
 
 app.listen(port, () => {
