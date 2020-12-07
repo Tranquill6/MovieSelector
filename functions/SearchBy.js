@@ -86,6 +86,9 @@ const GetMovieDetails = async (id) => {
                 });
                 val = comments.pop()
                 comments[0] = val
+                if(val == ''){
+                    comments = []
+                }
                 obj = {
                     title: Title,
                     director: Dir,

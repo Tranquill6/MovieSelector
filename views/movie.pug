@@ -10,41 +10,44 @@ html
     body
         .header
             include header.pug
-        h1=`${Data.results.title}   [${Data.results.rating}/10]` 
-        h3=`Directed By ${Data.results.director}`
-        br
-        h2
-            em
-                a(href=`/SimilarMovie/${Data.id}`) Find a Similar Movie!
-        br
-        h3 Actors
-        ul(style="list-style: none")
-            each item in Data.results.actors
-                li(style="display: inline")=`${item}, `
+        div(style="padding-left: 5%, padding-top: 5%;")
+            h1=`${Data.results.title}   [${Data.results.rating}/10]` 
+            h3=`Directed By ${Data.results.director}`
+            br
+            h2
+                em
+                    a(href=`/SimilarMovie/${Data.id}`) Find a Similar Movie!
+            br
+            h3 Actors
+            ul(style="list-style: none")
+                each item in Data.results.actors
+                    li(style="display: inline")=`${item}, `
 
-        h3 Genres
-        ul(style="list-style: none")
-            each item in Data.results.genres
-                li(style="display: inline")=`${item}, `
+            h3 Genres
+            ul(style="list-style: none")
+                each item in Data.results.genres
+                    li(style="display: inline")=`${item}, `
             
-        h3 Tags
-        ul(style="list-style: none")
-            each item in Data.results.tags
-                li(style="display: inline")=`${item}, `
+            h3 Tags
+            ul(style="list-style: none")
+                each item in Data.results.tags
+                    li(style="display: inline")=`${item}, `
 
-        h3 Rate the Movie!
-            form(id="change" action=`/ratemovie/${Data.id}/` method="get" style="padding-left:10px; width: 100%")
-                input(type="text" id="rateBtn" name="rating" placeholder="#/10")
-                button(type="submit") Rate
+            h3 Rate the Movie!
+                form(id="change" action=`/ratemovie/${Data.id}/` method="get" style="padding-left:10px; width: 100%")
+                    input(type="text" id="rateBtn" name="rating" placeholder="#/10")
+                    button(type="submit") Rate
 
-        h4 Make a Comment:
-            br
-            input(id="commentContent" type="text" style="width:30%; height: 100px;")
-            br
-            a(href=`/comment/${Data.id}/` id="cmtLnk") 
-                button Submit
+            h4 Make a Comment:
+                br
+                input(id="commentContent" type="text" style="width:30%; height: 100px;")
+                br
+                a(href=`/comment/${Data.id}/` id="cmtLnk") 
+                    button Submit
 
-        h3 Comment Section
-        ol
-            each item in Data.results.comments
-                li=`${item} `
+            h3 Comment Section
+            ol
+                each item in Data.results.comments
+                    li=`${item} ` 
+                        a(href=`/delete/${item}/${Data.id}`) 
+                            button(Style="background-color: pink") Delete
