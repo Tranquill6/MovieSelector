@@ -10,11 +10,14 @@ window.addEventListener('load', function () {
             form.setAttribute('action', formData+=rating.value)
         }
     })
-    document.getElementById('commentBtn').addEventListener('change', () =>{
-        comment = document.getElementById('commentBtn')
+    document.getElementById('commentContent').addEventListener('change', () =>{
+        comment = document.getElementById('commentContent')
         console.log(String(comment.value).length)
         if(String(comment.value).length > 200){
             comment.value = String(comment.value).substring(0,200)
         }
+        link = document.getElementById('cmtLnk')
+        linkData = link.getAttribute('href')
+        link.setAttribute('href', linkData+=comment.value)
     })
 });
