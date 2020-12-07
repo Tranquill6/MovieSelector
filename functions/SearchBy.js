@@ -56,7 +56,7 @@ const GetMoviesBy = (type, param) => {
 
 const GetMovieDetails = (id) => {
     return new Promise((resolve,reject) => {
-        sql = `SELECT m.title, m.rtAllCriticsRating, d2.directorName, a.actorName, g.genre, t2.TagName
+        sql = `SELECT DISTINCT m.title, m.rtAllCriticsRating, d2.directorName, a.actorName, g.genre, t2.TagName
         FROM Movies AS m
         INNER JOIN Actors AS a
         INNER JOIN Tags AS t1
@@ -64,26 +64,37 @@ const GetMovieDetails = (id) => {
         INNER JOIN Categorizes AS g
         INNER JOIN TagTitles AS t2
         INNER JOIN Directors AS d2
-        ON g.movieId = m.movieId AND a.movieId=m.movieId AND t1.movieId=m.movieId AND t1.tagId=t2.tagId AND d1.movieId=m.movieId AND d1.directorId=d2.directorId AND m.movieId='${id}'
+        ON g.movieId = m.movieId AND a.movieId=m.movieId AND t1.movieId=m.movieId AND t1.tagId=t2.tagId AND d1.movieId=m.movieId AND d1.directorId=d2.directorId AND m.movieId='${id}';
         `
         console.log(sql)
         db.query(sql, (err, result) => {
-            if (err) throw err;
-            Title = result[0].title
-            Rating = result[0].rtAllCriticsRating
-            Dir = result[0].directorName
-            actors = []
-            genres = []
-            tags = []
-            result.forEach(element => { 
-                if(!actors.includes(element.actorname))
-                    actors.push(element.actorname)
-                if(!genres.includes(element.genre))
-                    genres.push(element.genre)
-                if(!tags.includes(element.TagName))
-                    tags.push(element.TagName)
-            });
+            if (err) throw err
+            console.log(result)
+            if(result.length != 0){
+                Title = result[0].title
+                Rating = result[0].rtAllCriticsRating
+                Dir = result[0].directorName
+                actors = []
+                genres = []
+                tags = []
+                result.forEach(element => { 
+                    if(!actors.includes(element.actorName))
+                        actors.push(element.actorName)
+                    if(!genres.includes(element.genre))
+                        genres.push(element.genre)
+                    if(!tags.includes(element.tagName))
+                        tags.push(element.tagName)
+                });
+                obj = {
+                    title: Title,
+                    director: Dir,
+                    actors: actors,
+                    genres: genres,
+                    rating: Rating,
+                    tags: tags,
+                }
             resolve(obj)
+            }
         });
         obj = {
             title: '',
@@ -92,7 +103,6 @@ const GetMovieDetails = (id) => {
             genres: [],
             rating: '',
             tags: [],
-            comments: []
         }
         reject(obj)
     })
