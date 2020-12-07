@@ -58,6 +58,8 @@ app.get('/movie/:movieId', (req, res) => {
         catch (err) {
             res.send(err)
         }
+    }).catch((err) => {
+        res.send(err)
     })
 })
 

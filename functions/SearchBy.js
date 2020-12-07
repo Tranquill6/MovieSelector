@@ -49,6 +49,8 @@ const GetMoviesBy = (type, param) => {
             }
             reject(Data)
         }
+    }).catch((err)=>{
+        console.log(err)
     })
 }
 
@@ -64,6 +66,7 @@ const GetMovieDetails = (id) => {
         INNER JOIN Directors AS d2
         ON g.movieId = m.movieId AND a.movieId=m.movieId AND t1.movieId=m.movieId AND t1.tagId=t2.tagId AND d1.movieId=m.movieId AND d1.directorId=d2.directorId AND m.movieId='${id}'
         `
+        console.log(sql)
         db.query(sql, (err, result) => {
             if (err) throw err;
             Title = result[0].title
