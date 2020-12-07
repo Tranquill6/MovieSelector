@@ -9,14 +9,14 @@ html
     body
         .header
             include header.pug
-            div(class="Center" style="padding-left:3%")
-                h2 Search
-                form(action="/Results" method="get")
-                    select(name="type") Search Type
-                        option(value="genre") By Genre
-                        option(value="title") By Title
-                        option(value="actor") By Actor
-                        option(value="director") By Director
-                        option(value="tag") By Tag
-                    input(type="text" name="param" placeholder="Search Parameters")
-                    button(type="submit") Search
+        div(class="Center" style="padding-left:100px; width: 100%" )
+            h2 Search
+            form(action="/Results" method="get" style="padding-left:100px; width: 100%")
+                select(name="type") Search Type
+                    option(value="genre") By Genre
+                    option(value="title") By Title
+                    option(value="actor") By Actor
+                    option(value="director") By Director
+                    option(value="tag") By Tag
+                input(type="text" name="param" placeholder="Search Parameters" style="padding-left:100px; width: 60%;")
+                button(type="submit") Search
