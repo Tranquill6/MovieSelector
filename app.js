@@ -55,8 +55,7 @@ app.get('/movie/:movieId', (req, res) => {
             Data = {
                 results: results,
                 id: movieId
-            } 
-
+            }
             res.render('movie.pug', Data)
         }
         catch (err) {
