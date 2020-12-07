@@ -54,22 +54,33 @@ const GetMoviesBy = (type, param) => {
 
 const GetMovieDetails = (id) => {
     return new Promise((resolve,reject) => {
-        sql = "Silver bullet"
+        sql = ` SELECT m.Title, m.rtAllCriticsRating, d2.directorName, a.actorName, g.genre, t2.value
+            FROM Movies AS m
+            INNER JOIN Actors AS a
+            INNER JOIN tags AS t1
+            INNER JOIN directsin AS d1
+            INNER JOIN movie_genres AS g
+            INNER JOIN tagsTitles AS t2
+            INNER JOIN movie_directors AS d2
+            ON g.movieID = m.movieID AND a.movieID=m.movieID AND t1.movieID=m.movieID AND t1.tagID=t2.id AND d1.movieID=m.movieID AND d1.directorID=d2.directorID AND m.movieID='${id}';
+        `
         db.query(sql, (err, result) => {
             if (err) throw err;
-            console.log(result);
+            Title = result[0].title
+            Rating = result[0].rtAllCriticsRating
+            Dir = result[0].directorName
+            actorName = []
+            genre = []
+            tagName = []
             result.forEach(element => { 
-                obj = {
-                    title: element.title,
-                    director: element.director,
-                    actors: element.actors,
-                    genres: element.genres,
-                    rating: element.ratings,
-                    tags: element.tags,
-                    comments: element.content
-                }
-                resolve(obj)
+                if(!actors.includes(element.actorname))
+                    actors.push(element.actorname)
+                if(!genres.includes(element.genre))
+                    genres.push(element.genre)
+                if(!tags.includes(element.TagName))
+                    tags.push(element.TagName)
             });
+            resolve(obj)
         });
         obj = {
             title: '',
