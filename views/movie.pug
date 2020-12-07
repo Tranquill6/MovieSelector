@@ -32,8 +32,8 @@ html
             each item in Data.results.tags
                 li(style="display: inline")=`${item}, `
 
-        h3 Rate the Movie!  
-             form(id="change" action=`/ratemovie/${Data.id}/` method="get" style="padding-left:10px; width: 100%")
+        h3 Rate the Movie!
+            form(id="change" action=`/ratemovie/${Data.id}/` method="get" style="padding-left:10px; width: 100%")
                 input(type="text" id="rateBtn" name="rating" placeholder="#/10")
                 button(type="submit") Rate
 
