@@ -6,14 +6,11 @@ const GetMovie = (id) => {
         sql = `SELECT t1.movieId
             FROM Tags t1
             WHERE t1.tagId IN (SELECT t1.tagId FROM Tags t1, TagTitles t2 WHERE ${id} = t1.movieId AND t2.tagId = t1.tagId AND MOD(t1.tagId,2) != 1) AND t1.movieId != ${id} LIMIT 1`
-        console.log(sql)
         const ID = await new Promise((rslv, rjct) => db.query(sql, (err, result) => {
             if (err) throw err
-            console.log(result)
             rslv(result[0].movieId)
             rjct(result[0].movieId)
         }))
-        console.log(ID)
         resolve(ID)
     })
 }

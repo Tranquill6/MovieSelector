@@ -23,7 +23,6 @@ const GetMoviesBy = (type, param) => {
                 sql = `SELECT distinct m.title, m.movieId FROM Movies Where title LIKE '${param}'`;
         }
         try{
-            console.log(sql)
             _movies = new Array()
             returnDataObj = {}
             db.query(sql, (err, result) => {
@@ -35,11 +34,9 @@ const GetMoviesBy = (type, param) => {
                 }
                 _movies.push(obj)
                 });
-                console.log(_movies)
                 returnDataObj = {
                     movies: _movies
                 }
-                console.log(returnDataObj)
                 resolve(returnDataObj)
             });
         }
@@ -66,10 +63,8 @@ const GetMovieDetails = async (id) => {
         INNER JOIN Directors AS d2
         ON g.movieId = m.movieId AND a.movieId=m.movieId AND t1.movieId=m.movieId AND t1.tagId=t2.tagId AND d1.movieId=m.movieId AND d1.directorId=d2.directorId AND m.movieId='${id}';
         `
-        console.log(sql)
         const rows = await new Promise((rslv, rjct) => db.query(sql, (err, result) => {
             if (err) throw err
-            console.log(result)
             if(result.length != 0){
                 Title = result[0].title
                 Rating = result[0].rtAllCriticsRating
@@ -107,7 +102,6 @@ const GetMovieDetails = async (id) => {
         }
         rjct(obj)
     }))
-    console.log(rows)
     resolve(rows)
     })
 }
