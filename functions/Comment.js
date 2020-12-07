@@ -10,7 +10,7 @@ const db = database.db
 
 const makeComment = (text, movieID) => {
     return new Promise((resolve, reject) => {
-        sql = `INSERT INTO Comments('MovieId', 'content') VALUES (${movieID},${db.escape(text)})`;
+        sql = `INSERT INTO Comments('movieId', 'content') VALUES (${movieID},${db.escape(text)})`;
         db.query(sql, (error, result) => {
             if (err) throw err;
             console.log(result);
