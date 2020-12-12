@@ -8,6 +8,7 @@ const Comment = require('./functions/Comment.js')
 const Search = require('./functions/SearchBy.js')
 const Rate = require('./functions/RateMovie.js')
 const SimilarMovie = require('./functions/SimilarMovie.js')
+const StoredProcedure = require('./functions/StoredProcedure.js')
 const Database = require('./functions/Connect.js')
 
 app.set("view engine", "pug")
@@ -125,6 +126,27 @@ app.get('/delete/:content/:movieId', (req, res) => {
             link: `movie/${movieId}`,
             msg: `Your comment was removed!`
         }
+        res.render('message.pug', Data)
+    })
+})
+
+app.get('/procedure/getMovieCount', (req, res) => {
+    StoredProcedure.getMovieCount().then((results) => {
+        Data = results
+        res.render('message.pug', Data)
+    })
+})
+
+app.get('/procedure/getActorCount', (req, res) => {
+    StoredProcedure.getActorCount().then((results) => {
+        Data = results
+        res.render('message.pug', Data)
+    })
+})
+
+app.get('/procedure/getGenre', (req, res) => {
+    StoredProcedure.getGenre().then((results) => {
+        Data = results
         res.render('message.pug', Data)
     })
 })
