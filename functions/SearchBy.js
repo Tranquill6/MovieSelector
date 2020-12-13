@@ -52,17 +52,20 @@ const GetMoviesBy = (type, param) => {
 }
 
 const GetMovieDetails = async (id) => {
-    return new Promise( async (resolve,reject) => { 
-        sql = `SELECT DISTINCT m.title, m.rtAllCriticsRating, d2.directorName, a.actorName, g.genre, t2.tagName, c.content
-        FROM Movies AS m
-        INNER JOIN Actors AS a
-        INNER JOIN Tags AS t1
-        INNER JOIN DirectsIn AS d1
-        INNER JOIN Categorizes AS g
-        INNER JOIN TagTitles AS t2
-        INNER JOIN Directors AS d2
-        INNER JOIN Comments AS c
-        ON g.movieId = '${id}' AND a.movieId='${id}' AND t1.movieId='${id}' AND t1.tagId=t2.tagId AND d1.movieId='${id}' AND d1.directorId=d2.directorId AND m.movieId='${id}' AND (c.movieId = '${id}' OR c.movieId = 'null')
+    return new Promise( async (resolve,reject) => {
+        sql = `
+            SELECT DISTINCT m.title, m.rtAllCriticsRating, d2.directorName, a.actorName, g.genre, t2.tagName, c.content​
+            FROM Movies AS m​
+            INNER JOIN Actor AS a​
+            INNER JOIN Acts AS a2​
+            INNER JOIN Tags AS t1​
+            INNER JOIN DirectsIn AS d1​
+            INNER JOIN Belongs AS b​
+            INNER JOIN Categorizes AS g​
+            INNER JOIN TagTitles AS t2​
+            INNER JOIN Directors AS d2​
+            INNER JOIN Comments AS c​
+            ON g.movieId = '${id}' AND b.commentId=c.commentId AND a2.movieId='${id}' AND a.actorId=a2.actorId AND t1.movieId='${id}' AND t1.tagId=t2.tagId AND d1.movieId='${id}' AND d1.directorId=d2.directorId AND m.movieId='${id}' AND (b.movieId = '${id}' OR b.movieId = 'null')
         `
         const rows = await new Promise((rslv, rjct) => db.query(sql, (err, result) => {
             if (err) throw err
