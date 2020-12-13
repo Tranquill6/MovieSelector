@@ -56,7 +56,7 @@ const GetMovieDetails = async (id) => {
         sql = `
             SELECT DISTINCT m.title, m.rtAllCriticsRating, d2.directorName, a.actorName, g.genre, t2.tagName, c.content​
             FROM Movies AS m​
-            INNER JOIN Actor AS a​
+            INNER JOIN Actors AS a​
             INNER JOIN Acts AS a2​
             INNER JOIN Tags AS t1​
             INNER JOIN DirectsIn AS d1​
